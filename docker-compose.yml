@@ -1,0 +1,16 @@
+version: '2'
+services:
+  jmeter_master:
+    build: .
+    entrypoint: bin/mirror-server
+  jmeter_slave_1:
+    build: .
+    entrypoint: bin/jmeter-server
+    depends_on: 
+      - jmeter_master
+  jmeter_slave_2:
+    build: .
+    entrypoint: bin/jmeter-server  
+    depends_on:
+      - jmeter_master
+    
