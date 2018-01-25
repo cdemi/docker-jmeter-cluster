@@ -6,4 +6,3 @@ RUN mkdir /jmeter && \
     mv  apache-jmeter-${jmeter_version}/* /jmeter && \
     rm -rf /tmp/*
 WORKDIR /jmeter
-COPY scripts/ jmeter/

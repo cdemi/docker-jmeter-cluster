@@ -1,16 +1,16 @@
-version: '2'
+version: '2.2'
 services:
   jmeter_master:
     build: .
-    entrypoint: bin/mirror-server
-  jmeter_slave_1:
-    build: .
-    entrypoint: bin/jmeter-server
+    entrypoint: bin/jmeter -n -t /jmeter_scripts/script.jmx -R dockerjmetercluster_jmeter_slave_1,dockerjmetercluster_jmeter_slave_2
+    # entrypoint: sleep 9999
+    volumes: 
+      - ./jmeter_scripts:/jmeter_scripts/:ro
+      - ./jmeter_results:/jmeter_results/
     depends_on: 
-      - jmeter_master
-  jmeter_slave_2:
+      - jmeter_slave
+  jmeter_slave:
     build: .
-    entrypoint: bin/jmeter-server  
-    depends_on:
-      - jmeter_master
+    scale: 2
+    entrypoint: bin/jmeter-server
     
